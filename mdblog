@@ -8,12 +8,17 @@ PORT_NUMBER = 80
 
 class myHandler(BaseHTTPRequestHandler):
 	#Handler for the GET requests
+	def genHTML(self):
+        	fileUrls = []
+                for file in os.listdir(os.getcwd()):
+                	fileUrls.append("<a href=\"" + file + "\">")
+		return fileUrls
+
 	def do_GET(self):
 		if self.path=="/":
-			#self.path="/index.html"
                         self.send_response(200)
                         self.end_headers()
-                        self.wfile.write(os.listdir(os.getcwd()))
+                        self.wfile.write(self.genHTML())
 		try:
 			#Check the file extension required and
 			#set the right mime type
